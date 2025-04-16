@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>notes-system</artifactId>
+    <artifactId>notes-db</artifactId>
 
     <description>
-        system系统模块
+        数据库模块
     </description>
 
     <dependencies>
