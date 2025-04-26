@@ -10,8 +10,8 @@ import com.notes.common.constant.UserConstants;
 import com.notes.common.core.domain.entity.SysRole;
 import com.notes.common.core.domain.entity.SysUser;
 import com.notes.common.utils.StringUtils;
-import com.notes.system.service.ISysMenuService;
-import com.notes.system.service.ISysRoleService;
+import com.notes.service.system.ISysMenuService;
+import com.notes.service.system.ISysRoleService;
 
 /**
  * 用户权限处理

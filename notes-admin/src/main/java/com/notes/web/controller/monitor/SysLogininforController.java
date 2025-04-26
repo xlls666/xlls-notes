@@ -17,8 +17,8 @@ import com.notes.common.core.page.TableDataInfo;
 import com.notes.common.enums.BusinessType;
 import com.notes.common.utils.poi.ExcelUtil;
 import com.notes.framework.web.service.SysPasswordService;
-import com.notes.system.domain.SysLogininfor;
-import com.notes.system.service.ISysLogininforService;
+import com.notes.domain.system.SysLogininfor;
+import com.notes.service.system.ISysLogininforService;
 
 /**
  * 系统访问记录

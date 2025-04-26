@@ -19,7 +19,7 @@ import com.notes.common.core.domain.AjaxResult;
 import com.notes.common.core.domain.entity.SysMenu;
 import com.notes.common.enums.BusinessType;
 import com.notes.common.utils.StringUtils;
-import com.notes.system.service.ISysMenuService;
+import com.notes.service.system.ISysMenuService;
 
 /**
  * 菜单信息

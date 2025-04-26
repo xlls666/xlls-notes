@@ -15,8 +15,8 @@ import com.notes.common.utils.SecurityUtils;
 import com.notes.common.utils.StringUtils;
 import com.notes.framework.manager.AsyncManager;
 import com.notes.framework.manager.factory.AsyncFactory;
-import com.notes.system.service.ISysConfigService;
-import com.notes.system.service.ISysUserService;
+import com.notes.service.system.ISysConfigService;
+import com.notes.service.system.ISysUserService;
 
 /**
  * 注册校验方法

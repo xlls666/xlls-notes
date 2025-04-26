@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.notes.common.constant.CacheConstants;
 import com.notes.common.core.domain.AjaxResult;
 import com.notes.common.utils.StringUtils;
-import com.notes.system.domain.SysCache;
+import com.notes.domain.system.SysCache;
 
 /**
  * 缓存监控

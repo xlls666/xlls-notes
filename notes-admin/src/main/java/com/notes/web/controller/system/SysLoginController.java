@@ -17,7 +17,7 @@ import com.notes.common.utils.SecurityUtils;
 import com.notes.framework.web.service.SysLoginService;
 import com.notes.framework.web.service.SysPermissionService;
 import com.notes.framework.web.service.TokenService;
-import com.notes.system.service.ISysMenuService;
+import com.notes.service.system.ISysMenuService;
 
 /**
  * 登录验证

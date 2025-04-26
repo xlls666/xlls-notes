@@ -19,8 +19,8 @@ import com.notes.common.core.domain.AjaxResult;
 import com.notes.common.core.page.TableDataInfo;
 import com.notes.common.enums.BusinessType;
 import com.notes.common.utils.poi.ExcelUtil;
-import com.notes.system.domain.SysPost;
-import com.notes.system.service.ISysPostService;
+import com.notes.domain.system.SysPost;
+import com.notes.service.system.ISysPostService;
 
 /**
  * 岗位信息操作处理

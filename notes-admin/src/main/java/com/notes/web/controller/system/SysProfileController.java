@@ -22,7 +22,7 @@ import com.notes.common.utils.StringUtils;
 import com.notes.common.utils.file.FileUploadUtils;
 import com.notes.common.utils.file.MimeTypeUtils;
 import com.notes.framework.web.service.TokenService;
-import com.notes.system.service.ISysUserService;
+import com.notes.service.system.ISysUserService;
 
 /**
  * 个人信息 业务处理

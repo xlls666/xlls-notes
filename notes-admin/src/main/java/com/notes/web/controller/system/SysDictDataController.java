@@ -22,8 +22,8 @@ import com.notes.common.core.page.TableDataInfo;
 import com.notes.common.enums.BusinessType;
 import com.notes.common.utils.StringUtils;
 import com.notes.common.utils.poi.ExcelUtil;
-import com.notes.system.service.ISysDictDataService;
-import com.notes.system.service.ISysDictTypeService;
+import com.notes.service.system.ISysDictDataService;
+import com.notes.service.system.ISysDictTypeService;
 
 /**
  * 数据字典信息

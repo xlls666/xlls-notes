@@ -17,8 +17,8 @@ import com.notes.common.core.controller.BaseController;
 import com.notes.common.core.domain.AjaxResult;
 import com.notes.common.core.page.TableDataInfo;
 import com.notes.common.enums.BusinessType;
-import com.notes.system.domain.SysNotice;
-import com.notes.system.service.ISysNoticeService;
+import com.notes.domain.system.SysNotice;
+import com.notes.service.system.ISysNoticeService;
 
 /**
  * 公告 信息操作处理

@@ -31,7 +31,7 @@ import com.notes.common.utils.StringUtils;
 import com.notes.common.utils.ip.IpUtils;
 import com.notes.framework.manager.AsyncManager;
 import com.notes.framework.manager.factory.AsyncFactory;
-import com.notes.system.domain.SysOperLog;
+import com.notes.domain.system.SysOperLog;
 
 /**
  * 操作日志记录处理

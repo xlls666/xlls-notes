@@ -19,8 +19,8 @@ import com.notes.common.core.domain.AjaxResult;
 import com.notes.common.core.page.TableDataInfo;
 import com.notes.common.enums.BusinessType;
 import com.notes.common.utils.poi.ExcelUtil;
-import com.notes.system.domain.SysConfig;
-import com.notes.system.service.ISysConfigService;
+import com.notes.domain.system.SysConfig;
+import com.notes.service.system.ISysConfigService;
 
 /**
  * 参数配置 信息操作处理

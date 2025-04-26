@@ -56,7 +56,7 @@
         <!-- 系统模块-->
         <dependency>
             <groupId>com.notes</groupId>
-            <artifactId>notes-system</artifactId>
+            <artifactId>notes-db</artifactId>
         </dependency>
 
     </dependencies>

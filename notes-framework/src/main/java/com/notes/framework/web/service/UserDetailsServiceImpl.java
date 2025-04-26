@@ -13,7 +13,7 @@ import com.notes.common.enums.UserStatus;
 import com.notes.common.exception.ServiceException;
 import com.notes.common.utils.MessageUtils;
 import com.notes.common.utils.StringUtils;
-import com.notes.system.service.ISysUserService;
+import com.notes.service.system.ISysUserService;
 
 /**
  * 用户验证处理

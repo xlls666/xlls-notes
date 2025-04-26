@@ -20,7 +20,7 @@ import com.notes.common.core.domain.AjaxResult;
 import com.notes.common.core.domain.entity.SysDept;
 import com.notes.common.enums.BusinessType;
 import com.notes.common.utils.StringUtils;
-import com.notes.system.service.ISysDeptService;
+import com.notes.service.system.ISysDeptService;
 
 /**
  * 部门信息

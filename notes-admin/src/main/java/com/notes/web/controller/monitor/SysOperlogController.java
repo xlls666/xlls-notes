@@ -16,8 +16,8 @@ import com.notes.common.core.domain.AjaxResult;
 import com.notes.common.core.page.TableDataInfo;
 import com.notes.common.enums.BusinessType;
 import com.notes.common.utils.poi.ExcelUtil;
-import com.notes.system.domain.SysOperLog;
-import com.notes.system.service.ISysOperLogService;
+import com.notes.domain.system.SysOperLog;
+import com.notes.service.system.ISysOperLogService;
 
 /**
  * 操作日志记录

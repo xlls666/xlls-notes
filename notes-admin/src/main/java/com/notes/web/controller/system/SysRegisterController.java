@@ -9,7 +9,7 @@ import com.notes.common.core.domain.AjaxResult;
 import com.notes.common.core.domain.model.RegisterBody;
 import com.notes.common.utils.StringUtils;
 import com.notes.framework.web.service.SysRegisterService;
-import com.notes.system.service.ISysConfigService;
+import com.notes.service.system.ISysConfigService;
 
 /**
  * 注册验证

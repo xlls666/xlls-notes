@@ -20,8 +20,8 @@ import com.notes.common.core.page.TableDataInfo;
 import com.notes.common.core.redis.RedisCache;
 import com.notes.common.enums.BusinessType;
 import com.notes.common.utils.StringUtils;
-import com.notes.system.domain.SysUserOnline;
-import com.notes.system.service.ISysUserOnlineService;
+import com.notes.domain.system.SysUserOnline;
+import com.notes.service.system.ISysUserOnlineService;
 
 /**
  * 在线用户监控

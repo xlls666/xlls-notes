@@ -10,10 +10,10 @@ import com.notes.common.utils.StringUtils;
 import com.notes.common.utils.ip.AddressUtils;
 import com.notes.common.utils.ip.IpUtils;
 import com.notes.common.utils.spring.SpringUtils;
-import com.notes.system.domain.SysLogininfor;
-import com.notes.system.domain.SysOperLog;
-import com.notes.system.service.ISysLogininforService;
-import com.notes.system.service.ISysOperLogService;
+import com.notes.domain.system.SysLogininfor;
+import com.notes.domain.system.SysOperLog;
+import com.notes.service.system.ISysLogininforService;
+import com.notes.service.system.ISysOperLogService;
 import eu.bitwalker.useragentutils.UserAgent;
 
 /**

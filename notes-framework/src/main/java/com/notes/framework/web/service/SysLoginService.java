@@ -26,8 +26,8 @@ import com.notes.common.utils.ip.IpUtils;
 import com.notes.framework.manager.AsyncManager;
 import com.notes.framework.manager.factory.AsyncFactory;
 import com.notes.framework.security.context.AuthenticationContextHolder;
-import com.notes.system.service.ISysConfigService;
-import com.notes.system.service.ISysUserService;
+import com.notes.service.system.ISysConfigService;
+import com.notes.service.system.ISysUserService;
 
 /**
  * 登录校验方法

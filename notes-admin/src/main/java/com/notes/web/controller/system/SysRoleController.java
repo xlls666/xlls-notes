@@ -26,10 +26,10 @@ import com.notes.common.utils.StringUtils;
 import com.notes.common.utils.poi.ExcelUtil;
 import com.notes.framework.web.service.SysPermissionService;
 import com.notes.framework.web.service.TokenService;
-import com.notes.system.domain.SysUserRole;
-import com.notes.system.service.ISysDeptService;
-import com.notes.system.service.ISysRoleService;
-import com.notes.system.service.ISysUserService;
+import com.notes.domain.system.SysUserRole;
+import com.notes.service.system.ISysDeptService;
+import com.notes.service.system.ISysRoleService;
+import com.notes.service.system.ISysUserService;
 
 /**
  * 角色信息
