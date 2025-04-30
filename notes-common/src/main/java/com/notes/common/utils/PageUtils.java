@@ -1,9 +1,13 @@
 package com.notes.common.utils;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageHelper;
 import com.notes.common.core.page.PageDomain;
 import com.notes.common.core.page.TableSupport;
 import com.notes.common.utils.sql.SqlUtil;
+
+import java.util.List;
+
 
 /**
  * 分页工具类
@@ -31,5 +35,14 @@ public class PageUtils extends PageHelper
     public static void clearPage()
     {
         PageHelper.clearPage();
+    }
+
+    public static <T,V> Page<V> parseVOPage(Page<T> source, List<V> records) {
+        Page<V> newPage = new Page<V>();
+        newPage.setCurrent(source.getCurrent());
+        newPage.setSize(source.getSize());
+        newPage.setTotal(source.getTotal());
+        newPage.setRecords(records);
+        return newPage;
     }
 }

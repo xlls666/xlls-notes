@@ -76,10 +76,14 @@ public class TokenService
             {
                 Claims claims = parseToken(token);
                 // 解析对应的权限以及用户信息
-                String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
+//                String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
 //                String userKey = getTokenKey(uuid);
 //                LoginUser user = redisCache.getCacheObject(userKey);
                 Object o = claims.get(Constants.JWT_USERNAME);
+                Date expiration = claims.getExpiration();
+                if (expiration.before(new Date())) {
+                    throw new RuntimeException("登录已过期");
+                }
                 return JsonUtil.objectMapper.convertValue(o, FrontLoginUser.class);
             }
             catch (Exception e)
