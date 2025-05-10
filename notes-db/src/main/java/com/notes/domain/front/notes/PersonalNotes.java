@@ -90,6 +90,9 @@ public class PersonalNotes implements Serializable {
     private LocalDateTime recycleTime;
 
     public PersonalNotes() {
+    }
+
+    public void addInit() {
         this.del = false;
         this.recycle = false;
         LocalDateTime now = LocalDateTime.now();

@@ -55,6 +55,7 @@ public class WxServiceImpl implements WxService {
                 user.setLoginChannel(NotesUser.LoginChannel.WX_MINI_QUICK);
                 user.setLastLoginTime(now);
                 user.setLoginCount(1);
+                user.setNickname(unionid.toString().substring(6,10));
                 notesUserService.save(user);
             } else if (user.getStatus()) {
                 user.setLoginCount(user.getLoginCount() + 1);

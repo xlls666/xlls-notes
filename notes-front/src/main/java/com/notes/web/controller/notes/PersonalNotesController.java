@@ -8,6 +8,7 @@ import com.notes.common.utils.bean.BeanUtils;
 import com.notes.domain.front.notes.PersonalNotes;
 import com.notes.frontframe.util.FrontSecurityUtils;
 import com.notes.web.pojo.dto.notes.AddPersonalNotesDTO;
+import com.notes.web.pojo.dto.notes.EditPersonalNotesDTO;
 import com.notes.web.pojo.dto.notes.QueryPersonalNotesDTO;
 import com.notes.web.pojo.vo.notes.IndexNotesListVO;
 import com.notes.web.service.notes.IPersonalNotesService;
@@ -16,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,10 +36,40 @@ public class PersonalNotesController {
     @Autowired
     private IPersonalNotesService personalNotesService;
 
+    /* 笔记关联网 */
+
+
+    /* 个人笔记简单增删改查 */
+    @PutMapping("/recycle/{id}")
+    @ApiOperation("删除个人笔记至回收站")
+    public R<Boolean> delete(@PathVariable("id") Long id) {
+        PersonalNotes personalNotes = personalNotesService.getById(id);
+        personalNotes.setRecycle(true);
+        personalNotes.setRecycleTime(LocalDateTime.now());
+        return R.ok(personalNotesService.updateById(personalNotes));
+    }
+
+    @GetMapping("detail/{id}")
+    @ApiOperation("查询个人笔记详情")
+    public R<PersonalNotes> detail(@PathVariable("id") Long id) {
+        PersonalNotes personalNotes = personalNotesService.getById(id);
+        return R.ok(personalNotes);
+    }
+
+    @PutMapping("/update")
+    @ApiOperation("修改个人笔记")
+    public R<Boolean> update(@RequestBody EditPersonalNotesDTO editDTO) {
+        PersonalNotes personalNotes = new PersonalNotes();
+        BeanUtils.copyProperties(editDTO, personalNotes);
+        personalNotes.setUpdateTime(LocalDateTime.now());
+        return R.ok(personalNotesService.updateById(personalNotes));
+    }
+
     @PostMapping("/add")
     @ApiOperation("新增个人笔记")
     public R<Boolean> add(@RequestBody AddPersonalNotesDTO addDTO) {
         PersonalNotes personalNotes = new PersonalNotes();
+        personalNotes.addInit();
         BeanUtils.copyProperties(addDTO, personalNotes);
         Long userId = FrontSecurityUtils.getUserId();
         personalNotes.setNotesUserId(userId);
@@ -49,6 +81,7 @@ public class PersonalNotesController {
     public R<Page<IndexNotesListVO>> list(QueryPersonalNotesDTO queryDTO) {
         LambdaQueryWrapper<PersonalNotes> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(PersonalNotes::getNotesUserId, FrontSecurityUtils.getUserId());
+        queryWrapper.eq(PersonalNotes::getRecycle, queryDTO.getRecycle());
         queryWrapper.orderByDesc(PersonalNotes::getId);
         Page<PersonalNotes> pageResult = personalNotesService.page(
             new Page<>(queryDTO.getCurrent(), queryDTO.getSize()), queryWrapper);

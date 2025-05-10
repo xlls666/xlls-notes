@@ -12,4 +12,5 @@ public class IndexNotesListVO {
     private String source;
     private String content;
     private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }

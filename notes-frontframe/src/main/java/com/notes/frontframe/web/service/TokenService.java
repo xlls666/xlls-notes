@@ -135,6 +135,8 @@ public class TokenService
         claims.put(Constants.LOGIN_USER_KEY, token);
         FrontLoginUser frontLoginUser = new FrontLoginUser();
         BeanUtils.copyProperties(noteUser, frontLoginUser);
+        frontLoginUser.setUserName(noteUser.getNickname());
+        log.info("创建token：{}", frontLoginUser);
         claims.put(Constants.JWT_USERNAME, frontLoginUser);
         return createToken(claims);
     }

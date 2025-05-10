@@ -3,6 +3,7 @@ package com.notes.frontframe.util;
 import com.notes.common.constant.HttpStatus;
 import com.notes.common.exception.ServiceException;
 import com.notes.frontframe.model.FrontLoginUser;
+import org.slf4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -13,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class FrontSecurityUtils
 {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(FrontSecurityUtils.class);
 
     /**
      * 用户ID
@@ -41,6 +43,7 @@ public class FrontSecurityUtils
         }
         catch (Exception e)
         {
+            log.error("获取用户信息异常'{}'", e.getMessage());
             throw new ServiceException("获取用户信息异常", HttpStatus.UNAUTHORIZED);
         }
     }
