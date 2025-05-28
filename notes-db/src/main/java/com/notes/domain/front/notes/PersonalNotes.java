@@ -89,6 +89,12 @@ public class PersonalNotes implements Serializable {
     @TableField("recycle_time")
     private LocalDateTime recycleTime;
 
+    /**
+     * 可存储到es的时间，时间=时间戳开始时间 =》无需固化
+     */
+    @TableField("store_es_time")
+    private LocalDateTime storeEsTime;
+
     public PersonalNotes() {
     }
 

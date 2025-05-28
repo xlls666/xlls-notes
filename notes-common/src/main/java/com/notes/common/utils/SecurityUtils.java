@@ -3,6 +3,8 @@ package com.notes.common.utils;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +22,7 @@ import com.notes.common.exception.ServiceException;
  */
 public class SecurityUtils
 {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(SecurityUtils.class);
 
     /**
      * 用户ID
@@ -77,6 +80,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
+            log.error(e.getMessage());
             throw new ServiceException("获取用户信息异常", HttpStatus.UNAUTHORIZED);
         }
     }

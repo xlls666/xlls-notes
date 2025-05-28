@@ -45,4 +45,13 @@ public class PageUtils extends PageHelper
         newPage.setRecords(records);
         return newPage;
     }
+
+    public static <V> Page<V> page(List<V> records, long current, long size, long total) {
+        Page<V> newPage = new Page<V>();
+        newPage.setCurrent(current);
+        newPage.setSize(size);
+        newPage.setTotal(total);
+        newPage.setRecords(records);
+        return newPage;
+    }
 }

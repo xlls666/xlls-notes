@@ -7,6 +7,7 @@ import com.notes.common.utils.PageUtils;
 import com.notes.common.utils.bean.BeanUtils;
 import com.notes.domain.front.notes.PersonalNotes;
 import com.notes.frontframe.util.FrontSecurityUtils;
+import com.notes.web.pojo.dto.base.PageDTO;
 import com.notes.web.pojo.dto.notes.AddPersonalNotesDTO;
 import com.notes.web.pojo.dto.notes.EditPersonalNotesDTO;
 import com.notes.web.pojo.dto.notes.QueryPersonalNotesDTO;
@@ -15,8 +16,11 @@ import com.notes.web.service.notes.IPersonalNotesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,12 +36,35 @@ import java.util.stream.Collectors;
 @RestController
 @Api(tags = "个人笔记")
 @RequestMapping("/personal-notes")
+@Validated
 public class PersonalNotesController {
     @Autowired
     private IPersonalNotesService personalNotesService;
 
-    /* 笔记关联网 */
+    @PostMapping("/update-es")
+    @ApiOperation("更新个人笔记es")
+    public R updateEs() {
+        personalNotesService.updateEs();
+        return R.ok();
+    }
 
+    @GetMapping("relative/ai-id")
+    @ApiOperation("根据id，语义查询关联笔记")
+    public R<Page<IndexNotesListVO>> queryRelativeById(Long notesId, PageDTO pageDTO) {
+        return personalNotesService.queryRelativeById(notesId, pageDTO);
+    }
+
+    @GetMapping("relative/ai-keyword")
+    @ApiOperation("根据关键词，语义查询关联笔记")
+    public R<Page<IndexNotesListVO>> queryRelativeByKeyword(@NotBlank(message = "关键词不能为空") String keyword, PageDTO pageDTO) {
+        return personalNotesService.queryRelativeByKeyword(keyword, pageDTO);
+    }
+
+    @GetMapping("relative/es-keyword")
+    @ApiOperation("根据关键词，es查询关联笔记")
+    public R<Page<IndexNotesListVO>> queryRelativeByEsKeyword(@NotBlank(message = "关键词不能为空") String keyword, PageDTO pageDTO) {
+        return personalNotesService.queryRelativeByEsKeyword(keyword, pageDTO);
+    }
 
     /* 个人笔记简单增删改查 */
     @PutMapping("/recycle/{id}")
@@ -58,16 +85,19 @@ public class PersonalNotesController {
 
     @PutMapping("/update")
     @ApiOperation("修改个人笔记")
-    public R<Boolean> update(@RequestBody EditPersonalNotesDTO editDTO) {
+    public R<Boolean> update(@RequestBody @Valid EditPersonalNotesDTO editDTO) {
         PersonalNotes personalNotes = new PersonalNotes();
         BeanUtils.copyProperties(editDTO, personalNotes);
         personalNotes.setUpdateTime(LocalDateTime.now());
+        if (editDTO.getContent() != null && editDTO.getContent().length() > 10) {
+            personalNotes.setStoreEsTime(LocalDateTime.now());
+        }
         return R.ok(personalNotesService.updateById(personalNotes));
     }
 
     @PostMapping("/add")
     @ApiOperation("新增个人笔记")
-    public R<Boolean> add(@RequestBody AddPersonalNotesDTO addDTO) {
+    public R<Boolean> add(@RequestBody @Valid AddPersonalNotesDTO addDTO) {
         PersonalNotes personalNotes = new PersonalNotes();
         personalNotes.addInit();
         BeanUtils.copyProperties(addDTO, personalNotes);

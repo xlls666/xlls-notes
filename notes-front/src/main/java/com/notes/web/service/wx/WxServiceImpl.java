@@ -1,4 +1,4 @@
-package com.notes.web.service.impl;
+package com.notes.web.service.wx;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
@@ -9,7 +9,7 @@ import com.notes.frontframe.util.KvConfigUtils;
 import com.notes.frontframe.web.service.TokenService;
 import com.notes.domain.front.user.NotesUser;
 import com.notes.service.front.user.INotesUserService;
-import com.notes.web.service.WxService;
+import com.notes.web.service.wx.WxService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class WxServiceImpl implements WxService {
+public class WxServiceImpl implements WxService{
 
     @Autowired
     private INotesUserService notesUserService;
@@ -72,8 +72,4 @@ public class WxServiceImpl implements WxService {
         }
     }
 
-    @Override
-    public NotesUser test() {
-        return notesUserService.getById(1);
-    }
 }

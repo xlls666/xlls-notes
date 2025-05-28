@@ -36,11 +36,18 @@
         <spring-security.version>5.7.12</spring-security.version>
         <spring-framework.version>5.3.39</spring-framework.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <volcengine.version>LATEST</volcengine.version>
     </properties>
 
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.volcengine</groupId>
+                <artifactId>volcengine-java-sdk-ark-runtime</artifactId>
+                <!-- 替换'LATEST' 为 SDK 最新版本号：https://central.sonatype.com/artifact/com.volcengine/volcengine-java-sdk-ark-runtime -->
+                <version>${volcengine.version}</version>
+            </dependency>
             <!-- mybatis-plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>

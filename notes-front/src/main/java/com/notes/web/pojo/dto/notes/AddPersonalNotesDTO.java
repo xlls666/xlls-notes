@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Size;
+
 @Data
 @ApiModel("新增个人笔记")
 public class AddPersonalNotesDTO {
@@ -14,5 +16,6 @@ public class AddPersonalNotesDTO {
     @ApiModelProperty(value = "来源", example = "知乎",dataType = "String")
     private String source;
     @ApiModelProperty(value = "内容", example = "learn~ learn ass",dataType = "String")
+    @Size(max = 500, message = "内容长度不能超过500字")
     private String content;
 }

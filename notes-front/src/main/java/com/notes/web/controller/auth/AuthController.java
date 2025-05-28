@@ -2,18 +2,13 @@ package com.notes.web.controller.auth;
 
 import com.notes.common.constant.Constants;
 import com.notes.common.core.domain.AjaxResult;
-import com.notes.common.core.domain.entity.SysUser;
-import com.notes.common.core.domain.model.LoginUser;
-import com.notes.common.utils.SecurityUtils;
 import com.notes.frontframe.model.FrontLoginUser;
 import com.notes.frontframe.util.FrontSecurityUtils;
-import com.notes.web.service.WxService;
+import com.notes.web.service.wx.WxService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
 
 @RestController
 @RequestMapping("/auth")

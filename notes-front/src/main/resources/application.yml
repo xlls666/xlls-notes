@@ -36,6 +36,8 @@ logging:
   level:
     com.notes: debug
     org.springframework: warn
+    org.elasticsearch.client.RestClient: debug
+    org.elasticsearch.client.RestClient.wire: trace
 
 # 用户配置
 user:
