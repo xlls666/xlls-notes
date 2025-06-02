@@ -28,6 +28,7 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.time.LocalDateTime;
@@ -106,7 +107,11 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
 
     @Override
     public R<Page<IndexNotesListVO>> queryRelativeById(Long notesId, PageDTO page) {
-        PersonalNotes notes = this.getById(notesId);
+        LambdaQueryWrapper<PersonalNotes> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(PersonalNotes::getId, notesId);
+        wrapper.eq(PersonalNotes::getNotesUserId, FrontSecurityUtils.getUserId());
+        wrapper.eq(PersonalNotes::getRecycle, false);
+        PersonalNotes notes = this.getOne(wrapper);
         if (notes == null) {
             return R.fail(null, "笔记不存在");
         }
@@ -149,6 +154,7 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
 
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
         boolQuery.must(QueryBuilders.termQuery("notesUserId", userId));
+        boolQuery.must(QueryBuilders.termQuery("recycle", false)); // 添加recycle字段必须为false的条件
 
         BoolQueryBuilder multiMatchBool = QueryBuilders.boolQuery();
         multiMatchBool.should(QueryBuilders.matchQuery("content", keyword).boost(4.0f));
@@ -192,12 +198,27 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
         return R.ok(PageUtils.page(resultContent, pageDTO.getCurrent(), resultContent.size(), searchHits.getTotalHits()));
     }
 
+    @Override
+    @Transactional
+    public void recyclePersonalNotes(Long id) {
+        PersonalNotes personalNotes = this.getById(id);
+        personalNotes.setRecycle(true);
+        personalNotes.setRecycleTime(LocalDateTime.now());
+        this.updateById(personalNotes);
+        Optional<ESNotes> optional = esNotesRepository.findById(id.toString());
+         if (optional.isPresent()) {
+            ESNotes esNotes = optional.get();
+            esNotes.setRecycle(true);
+            esNotesRepository.save(esNotes);
+        }
+    }
 
 
     private SearchHits<ESNotes> findSimilarNotes(List<Double> embedding, Long notesUserId, String excludeId, int pageNum, int pageSize) {
         // 构造bool查询
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
         boolQuery.must(QueryBuilders.termQuery("notesUserId", notesUserId));
+        boolQuery.must(QueryBuilders.termQuery("recycle", false));
         if (excludeId != null) {
             boolQuery.mustNot(QueryBuilders.termQuery("_id", excludeId));
         }
@@ -212,6 +233,7 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
             .withQuery(scriptScoreQuery)
             .withPageable(PageRequest.of(pageNum - 1, pageSize))
+            .withMinScore(1.8f)  // 设置相似度阈值，过滤低相似度结果
             .build();
 
         return elasticsearchTemplate.search(searchQuery, ESNotes.class);

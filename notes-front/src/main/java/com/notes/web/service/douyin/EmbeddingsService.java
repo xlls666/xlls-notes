@@ -2,6 +2,7 @@ package com.notes.web.service.douyin;
 
 import com.notes.frontframe.constants.KvConfigConstants;
 import com.notes.frontframe.util.KvConfigUtils;
+import com.volcengine.ark.runtime.model.embeddings.Embedding;
 import com.volcengine.ark.runtime.model.embeddings.EmbeddingRequest;
 import com.volcengine.ark.runtime.model.embeddings.EmbeddingResult;
 import com.volcengine.ark.runtime.service.ArkService;
@@ -28,7 +29,7 @@ public class EmbeddingsService {
             .build();
     }
 
-    private final static int dim = 512;
+    private final static int dim = 2048;
 
 
     public List<List<Double>> getEmbeddingList(List<String> textList) {
@@ -38,7 +39,7 @@ public class EmbeddingsService {
             .build();
 
         EmbeddingResult res = service.createEmbeddings(embeddingRequest);
-        return res.getData().stream().map(embedding -> {
+        /*return res.getData().stream().map(embedding -> {
             List<Double> vector = embedding.getEmbedding();
             if (vector == null || vector.size() < dim) {
                 throw new IllegalArgumentException("输入向量长度不足 " + dim);
@@ -56,6 +57,7 @@ public class EmbeddingsService {
                 normalized.add(val / norm);
             }
             return normalized;
-        }).collect(Collectors.toList());
+        }).collect(Collectors.toList());*/
+        return res.getData().stream().map(Embedding::getEmbedding).collect(Collectors.toList());
     }
 }

@@ -69,11 +69,9 @@ public class PersonalNotesController {
     /* 个人笔记简单增删改查 */
     @PutMapping("/recycle/{id}")
     @ApiOperation("删除个人笔记至回收站")
-    public R<Boolean> delete(@PathVariable("id") Long id) {
-        PersonalNotes personalNotes = personalNotesService.getById(id);
-        personalNotes.setRecycle(true);
-        personalNotes.setRecycleTime(LocalDateTime.now());
-        return R.ok(personalNotesService.updateById(personalNotes));
+    public R delete(@PathVariable("id") Long id) {
+        personalNotesService.recyclePersonalNotes(id);
+        return R.ok();
     }
 
     @GetMapping("detail/{id}")

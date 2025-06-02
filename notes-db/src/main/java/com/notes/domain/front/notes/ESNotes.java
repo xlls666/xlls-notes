@@ -16,6 +16,9 @@ public class ESNotes {
     @Field(type = FieldType.Keyword)
     private Long notesUserId;
 
+    @Field(type = FieldType.Keyword)
+    private Boolean recycle;
+
     @MultiField(mainField=@Field(type = FieldType.Text, analyzer = "ik_smart", searchAnalyzer = "ik_smart"),
         otherFields = { @InnerField(suffix = "keyword", type = FieldType.Keyword) })
     private String tag;
@@ -33,6 +36,6 @@ public class ESNotes {
     private String content;
 
     // 添加语义向量字段
-    @Field(type = FieldType.Dense_Vector, dims = 512)  // 注意：dims 要根据你的模型维度调整，例如768维
+    @Field(type = FieldType.Dense_Vector, dims = 2048)  // 注意：dims 要根据你的模型维度调整，例如768维
     private List<Double> embedding;
 }
