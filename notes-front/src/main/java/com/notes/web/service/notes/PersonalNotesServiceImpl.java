@@ -57,6 +57,9 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
     @Autowired
     private TransactionTemplate transactionTemplate;
 
+    @Autowired
+    private IRagNotesService ragNotesService;
+
 
     @Override
     public void updateEs() {
@@ -211,6 +214,21 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
             esNotes.setRecycle(true);
             esNotesRepository.save(esNotes);
         }
+    }
+
+    @Override
+    public Boolean addNotes(PersonalNotes personalNotes) {
+        this.save(personalNotes);
+        // 后续使用队列，或者微服务
+        ragNotesService.storeNotes(personalNotes.getId());
+        return true;
+    }
+
+    @Override
+    public void updateNotes(PersonalNotes personalNotes) {
+        this.updateById(personalNotes);
+        // 后续使用队列，或者微服务
+        ragNotesService.storeNotes(personalNotes.getId());
     }
 
 

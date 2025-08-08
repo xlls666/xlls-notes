@@ -15,6 +15,7 @@ import com.notes.web.pojo.vo.notes.IndexNotesListVO;
 import com.notes.web.service.notes.IPersonalNotesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,8 @@ public class PersonalNotesController {
     @Autowired
     private IPersonalNotesService personalNotesService;
 
+
+    /* es个人笔记(已废弃) */
     @PostMapping("/update-es")
     @ApiOperation("更新个人笔记es")
     public R updateEs() {
@@ -90,7 +93,8 @@ public class PersonalNotesController {
         if (editDTO.getContent() != null && editDTO.getContent().length() > 10) {
             personalNotes.setStoreEsTime(LocalDateTime.now());
         }
-        return R.ok(personalNotesService.updateById(personalNotes));
+        personalNotesService.updateNotes(personalNotes);
+        return R.ok(true);
     }
 
     @PostMapping("/add")
@@ -101,7 +105,8 @@ public class PersonalNotesController {
         BeanUtils.copyProperties(addDTO, personalNotes);
         Long userId = FrontSecurityUtils.getUserId();
         personalNotes.setNotesUserId(userId);
-        return R.ok(personalNotesService.save(personalNotes));
+
+        return R.ok(personalNotesService.addNotes(personalNotes));
     }
 
     @GetMapping("list")
@@ -110,6 +115,19 @@ public class PersonalNotesController {
         LambdaQueryWrapper<PersonalNotes> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(PersonalNotes::getNotesUserId, FrontSecurityUtils.getUserId());
         queryWrapper.eq(PersonalNotes::getRecycle, queryDTO.getRecycle());
+        
+        if (StringUtils.isNotBlank(queryDTO.getKeyword())) {
+            // 将以下四个查询合并为为or查询，和上述的两个条件and并列
+            queryWrapper.and(wrapper -> wrapper
+                .like(PersonalNotes::getContent, queryDTO.getKeyword())
+                .or()
+                .like(PersonalNotes::getTitle, queryDTO.getKeyword())
+                .or()
+                .like(PersonalNotes::getTag, queryDTO.getKeyword())
+                .or()
+                .like(PersonalNotes::getSource, queryDTO.getKeyword()));
+        }
+        
         queryWrapper.orderByDesc(PersonalNotes::getId);
         Page<PersonalNotes> pageResult = personalNotesService.page(
             new Page<>(queryDTO.getCurrent(), queryDTO.getSize()), queryWrapper);

@@ -26,4 +26,8 @@ public interface IPersonalNotesService extends IService<PersonalNotes> {
     R<Page<IndexNotesListVO>> queryRelativeByEsKeyword(String keyword, PageDTO pageDTO);
 
     void recyclePersonalNotes(Long id);
+
+    Boolean addNotes(PersonalNotes personalNotes);
+
+    void updateNotes(PersonalNotes personalNotes);
 }
