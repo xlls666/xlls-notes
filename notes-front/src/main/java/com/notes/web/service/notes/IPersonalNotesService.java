@@ -17,13 +17,13 @@ import com.notes.web.pojo.vo.notes.IndexNotesListVO;
  */
 public interface IPersonalNotesService extends IService<PersonalNotes> {
 
-    void updateEs();
+    /*void updateEs();
 
     R<Page<IndexNotesListVO>> queryRelativeById(Long notesId, PageDTO pageDTO);
 
     R<Page<IndexNotesListVO>> queryRelativeByKeyword(String keyword, PageDTO pageDTO);
 
-    R<Page<IndexNotesListVO>> queryRelativeByEsKeyword(String keyword, PageDTO pageDTO);
+    R<Page<IndexNotesListVO>> queryRelativeByEsKeyword(String keyword, PageDTO pageDTO);*/
 
     void recyclePersonalNotes(Long id);
 

@@ -4,7 +4,6 @@ import com.notes.web.pojo.dto.base.PageDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.elasticsearch.index.query.QueryBuilders;
 
 @Data
 @ApiModel("查询个人笔记条件")

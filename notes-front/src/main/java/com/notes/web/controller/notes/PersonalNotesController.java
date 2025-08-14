@@ -44,7 +44,7 @@ public class PersonalNotesController {
 
 
     /* es个人笔记(已废弃) */
-    @PostMapping("/update-es")
+    /*@PostMapping("/update-es")
     @ApiOperation("更新个人笔记es")
     public R updateEs() {
         personalNotesService.updateEs();
@@ -67,7 +67,7 @@ public class PersonalNotesController {
     @ApiOperation("根据关键词，es查询关联笔记")
     public R<Page<IndexNotesListVO>> queryRelativeByEsKeyword(@NotBlank(message = "关键词不能为空") String keyword, PageDTO pageDTO) {
         return personalNotesService.queryRelativeByEsKeyword(keyword, pageDTO);
-    }
+    }*/
 
     /* 个人笔记简单增删改查 */
     @PutMapping("/recycle/{id}")

@@ -1,39 +1,15 @@
 package com.notes.web.service.notes;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.notes.common.constant.TimeConstants;
-import com.notes.common.core.domain.R;
-import com.notes.common.utils.PageUtils;
-import com.notes.domain.front.notes.ESNotes;
 import com.notes.domain.front.notes.PersonalNotes;
-import com.notes.frontframe.util.FrontSecurityUtils;
 import com.notes.mapper.front.notes.ESNotesRepository;
 import com.notes.mapper.front.notes.PersonalNotesMapper;
-import com.notes.web.pojo.dto.base.PageDTO;
-import com.notes.web.pojo.vo.notes.IndexNotesListVO;
-import com.notes.web.service.douyin.EmbeddingsService;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.functionscore.ScriptScoreQueryBuilder;
-import org.elasticsearch.script.Script;
-import org.elasticsearch.script.ScriptType;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -45,14 +21,14 @@ import java.util.stream.Collectors;
  */
 @Service
 public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, PersonalNotes> implements IPersonalNotesService {
-    @Autowired
+    /*@Autowired
     private ESNotesRepository esNotesRepository;
 
     @Autowired
     private EmbeddingsService embeddingsService;
 
     @Autowired
-    private ElasticsearchRestTemplate elasticsearchTemplate;
+    private ElasticsearchRestTemplate elasticsearchTemplate;*/
 
     @Autowired
     private TransactionTemplate transactionTemplate;
@@ -61,7 +37,7 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
     private IRagNotesService ragNotesService;
 
 
-    @Override
+    /*@Override
     public void updateEs() {
         Long userId = FrontSecurityUtils.getUserId();
         LambdaQueryWrapper<PersonalNotes> wrapper = new LambdaQueryWrapper<>();
@@ -199,7 +175,7 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
         }).collect(Collectors.toList());
 
         return R.ok(PageUtils.page(resultContent, pageDTO.getCurrent(), resultContent.size(), searchHits.getTotalHits()));
-    }
+    }*/
 
     @Override
     @Transactional
@@ -208,12 +184,12 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
         personalNotes.setRecycle(true);
         personalNotes.setRecycleTime(LocalDateTime.now());
         this.updateById(personalNotes);
-        Optional<ESNotes> optional = esNotesRepository.findById(id.toString());
+        /*Optional<ESNotes> optional = esNotesRepository.findById(id.toString());
          if (optional.isPresent()) {
             ESNotes esNotes = optional.get();
             esNotes.setRecycle(true);
             esNotesRepository.save(esNotes);
-        }
+        }*/
     }
 
     @Override
@@ -232,7 +208,7 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
     }
 
 
-    private SearchHits<ESNotes> findSimilarNotes(List<Double> embedding, Long notesUserId, String excludeId, int pageNum, int pageSize) {
+    /*private SearchHits<ESNotes> findSimilarNotes(List<Double> embedding, Long notesUserId, String excludeId, int pageNum, int pageSize) {
         // 构造bool查询
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
         boolQuery.must(QueryBuilders.termQuery("notesUserId", notesUserId));
@@ -255,5 +231,5 @@ public class PersonalNotesServiceImpl extends ServiceImpl<PersonalNotesMapper, P
             .build();
 
         return elasticsearchTemplate.search(searchQuery, ESNotes.class);
-    }
+    }*/
 }

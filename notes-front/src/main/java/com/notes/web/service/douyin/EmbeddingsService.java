@@ -1,23 +1,8 @@
 package com.notes.web.service.douyin;
 
-import com.notes.frontframe.constants.KvConfigConstants;
-import com.notes.frontframe.util.KvConfigUtils;
-import com.volcengine.ark.runtime.model.embeddings.Embedding;
-import com.volcengine.ark.runtime.model.embeddings.EmbeddingRequest;
-import com.volcengine.ark.runtime.model.embeddings.EmbeddingResult;
-import com.volcengine.ark.runtime.service.ArkService;
-import okhttp3.ConnectionPool;
-import okhttp3.Dispatcher;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
-@Service
+//@Service
 public class EmbeddingsService {
-    private final String model ;
+    /*private final String model ;
     private final ArkService service ;
 
     public EmbeddingsService() {
@@ -39,7 +24,7 @@ public class EmbeddingsService {
             .build();
 
         EmbeddingResult res = service.createEmbeddings(embeddingRequest);
-        /*return res.getData().stream().map(embedding -> {
+        *//*return res.getData().stream().map(embedding -> {
             List<Double> vector = embedding.getEmbedding();
             if (vector == null || vector.size() < dim) {
                 throw new IllegalArgumentException("输入向量长度不足 " + dim);
@@ -57,7 +42,7 @@ public class EmbeddingsService {
                 normalized.add(val / norm);
             }
             return normalized;
-        }).collect(Collectors.toList());*/
+        }).collect(Collectors.toList());*//*
         return res.getData().stream().map(Embedding::getEmbedding).collect(Collectors.toList());
-    }
+    }*/
 }
